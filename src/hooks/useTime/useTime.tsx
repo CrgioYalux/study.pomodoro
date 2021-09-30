@@ -1,13 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-
-export type Time = {
-	seconds: number;
-	minutes: number;
-};
-
+import { Time } from './Time';
 interface useTimerProps {
 	from: Time;
 	to: Time;
+	autostart?: boolean;
 }
 
 interface useTimerValue {
@@ -16,7 +12,11 @@ interface useTimerValue {
 	startTimer: () => void;
 }
 
-export const useTimer = ({ from, to }: useTimerProps): useTimerValue => {
+export const useTimer = ({
+	from,
+	to,
+	autostart,
+}: useTimerProps): useTimerValue => {
 	const [seconds, setSeconds] = useState(from.seconds);
 	const [minutes, setMinutes] = useState(from.minutes);
 	const [counterRunning, setCounterRunning] = useState(false);
@@ -24,7 +24,7 @@ export const useTimer = ({ from, to }: useTimerProps): useTimerValue => {
 	const counterRef = useRef<NodeJS.Timeout>();
 
 	const stopCounting = (): void => {
-		counterRef.current && clearInterval(counterRef.current);
+		counterRef.current && clearTimeout(counterRef.current);
 		setCounterRunning(false);
 	};
 
@@ -33,23 +33,22 @@ export const useTimer = ({ from, to }: useTimerProps): useTimerValue => {
 	};
 
 	useEffect(() => {
-		if (counterRunning) {
-			counterRef.current && clearInterval(counterRef.current);
-			counterRef.current = setInterval(() => {
-				setSeconds((s) => (s === 59 ? 0 : s + 1));
-			}, 1000);
-			return () => stopCounting();
-		}
-	}, [counterRunning]);
+		if (autostart) startCounting();
+		return () => stopCounting();
+	}, [autostart]);
 
 	useEffect(() => {
-		if (seconds === 59) {
-			const addMinute = setTimeout(() => {
-				setMinutes((m) => m + 1);
+		if (counterRunning) {
+			counterRef.current && clearTimeout(counterRef.current);
+			counterRef.current = setTimeout(() => {
+				let prevSeconds = seconds;
+				setSeconds((s) => (s === 59 ? 0 : s + 1));
+				if (prevSeconds === 59) {
+					setMinutes((m) => m + 1);
+				}
 			}, 1000);
-			return () => clearTimeout(addMinute);
 		}
-	}, [seconds]);
+	}, [counterRunning, seconds]);
 
 	useEffect(() => {
 		if (seconds === to.seconds && minutes === to.minutes) {
