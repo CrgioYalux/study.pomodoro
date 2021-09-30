@@ -10,6 +10,7 @@ interface useTimerValue {
 	time: Time;
 	stopTimer: () => void;
 	startTimer: () => void;
+	restartTimer: () => void;
 }
 
 export const useTimer = ({
@@ -30,6 +31,12 @@ export const useTimer = ({
 
 	const startCounting = (): void => {
 		setCounterRunning(true);
+	};
+
+	const restartCounting = (): void => {
+		stopCounting();
+		setSeconds(0);
+		setMinutes(0);
 	};
 
 	useEffect(() => {
@@ -60,5 +67,6 @@ export const useTimer = ({
 		time: { seconds, minutes },
 		stopTimer: stopCounting,
 		startTimer: startCounting,
+		restartTimer: restartCounting,
 	};
 };
