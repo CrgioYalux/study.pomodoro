@@ -1,11 +1,13 @@
 import './CreateTask.scss';
 
 import { Time } from '../../hooks/useTime/Time';
-import { Task } from '../Task/Task';
 import { timeOptions } from './utils';
+import { useTasksUtil } from '../../providers/TasksUtil';
 
 export const CreateTask = () => {
-	const createTask = (e: React.SyntheticEvent) => {
+	const { createTask } = useTasksUtil();
+
+	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
 		const target = e.target as typeof e.target & {
 			title: { value: string; focus: () => void };
@@ -14,20 +16,16 @@ export const CreateTask = () => {
 			};
 		};
 		const taskTitle: string = target.title.value;
-		const taskTime: Time = JSON.parse(target.time_option.value);
-		const task: Task = {
-			time: taskTime,
-			title: taskTitle,
-		};
+		const taskEndTime: Time = JSON.parse(target.time_option.value);
 
-		// do something with the task here
+		createTask(taskTitle, taskEndTime);
 
 		target.title.value = '';
 		target.title.focus();
 	};
 
 	return (
-		<form onSubmit={createTask} className="CreateTask-container">
+		<form onSubmit={handleSubmit} className="CreateTask-container">
 			<input
 				type="text"
 				name="title"
