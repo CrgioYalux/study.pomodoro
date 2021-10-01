@@ -1,11 +1,9 @@
 import './Timer.scss';
-import { useTimer } from '../../hooks/useTime';
-import { TimeConfig, formatTime } from '../../hooks/useTime/Time';
+import { useTimerUtil } from '../../providers/TimerUtil';
+import { formatTime } from '../../hooks/useTime/Time';
 
 export const Timer = () => {
-	const { startTimer, stopTimer, restartTimer, time } = useTimer(
-		TimeConfig.FromZeroToInfinite,
-	);
+	const { startTimer, stopTimer, restartTimer, time } = useTimerUtil();
 
 	return (
 		<div className="Timer-container">
