@@ -8,7 +8,7 @@ export type Period = {
 	to: Time;
 };
 
-export const TimeConfig = {
+export const TimePreConfig = {
 	FromZero: { seconds: 0, minutes: 0 },
 	ToInfinite: { seconds: 0, minutes: Number.POSITIVE_INFINITY },
 	FromZeroToInfinite: {
@@ -25,6 +25,18 @@ export const formatTime = (time: Time): string => {
 
 export const timeToSeconds = (time: Time): number => {
 	return time.minutes * 60 + time.seconds;
+};
+
+export const addTwoTimes = (timeA: Time, timeB: Time): Time => {
+	const addedSeconds = (timeA.seconds + timeB.seconds) % 60;
+	const addedMinutes =
+		timeA.minutes +
+		timeB.minutes +
+		Math.floor((timeA.seconds + timeB.seconds) / 60);
+	return {
+		seconds: addedSeconds,
+		minutes: addedMinutes,
+	};
 };
 
 export const secondsToTime = (seconds: number): Time => {
