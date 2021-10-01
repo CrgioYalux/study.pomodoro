@@ -6,7 +6,7 @@ interface useTimerProps {
 	autostart?: boolean;
 }
 
-interface useTimerValue {
+export interface useTimerValues {
 	time: Time;
 	stopTimer: () => void;
 	startTimer: () => void;
@@ -17,7 +17,7 @@ export const useTimer = ({
 	from,
 	to,
 	autostart,
-}: useTimerProps): useTimerValue => {
+}: useTimerProps): useTimerValues => {
 	const [seconds, setSeconds] = useState(from.seconds);
 	const [minutes, setMinutes] = useState(from.minutes);
 	const [counterRunning, setCounterRunning] = useState(false);
