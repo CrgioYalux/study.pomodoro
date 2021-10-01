@@ -1,0 +1,57 @@
+@import '../../sass/base';
+
+.CreateTask-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	background-color: rgba(36, 36, 36, 1);
+	padding: 5px;
+	border-radius: 5px;
+
+	.input-title {
+		width: 100%;
+		border: 0;
+		border-radius: 5px;
+		font-size: 1rem;
+		padding: 0.2em 0;
+		font-family: sans-serif;
+		font-weight: 600;
+		color: whitesmoke;
+		text-align: center;
+		text-transform: lowercase;
+		background-color: black;
+	}
+	.CreateTask-time-options {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+
+		.time-option {
+			label {
+				display: block;
+				background-color: black;
+				color: whitesmoke;
+				font-family: sans-serif;
+				font-size: 2rem;
+				font-weight: 600;
+				padding: 0.1em 0.3em;
+				border: 3px solid black;
+				border-radius: 16px;
+				cursor: pointer;
+			}
+			input {
+				display: none;
+				&:checked ~ label {
+					border-color: currentColor;
+				}
+			}
+		}
+	}
+	.CreateTask-submit-button {
+		@extend .base-button;
+		border-color: transparent;
+		padding: 0.6em 0.8em;
+	}
+}
