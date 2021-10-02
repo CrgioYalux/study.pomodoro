@@ -1,14 +1,33 @@
 import './ProgressBar.scss';
-import { Time, formatTime } from '../../hooks/useTime/Time';
-import { progressInPercentage, timeLeft } from './utils';
-
+import {
+	Period,
+	Time,
+	formatTime,
+	subtractTwoTimes,
+} from '../../hooks/useTime/Time';
+import { useTimerUtil } from '../../providers/TimerUtil';
+import { progressInPercentage } from './utils';
 interface ProgressBarProps {
-	timer: Time;
-	internalTime: Time;
+	period: Period;
+	duration: Time;
 }
 
-export const ProgressBar = ({ internalTime, timer }: ProgressBarProps) => {
-	const progress = progressInPercentage(internalTime, timer);
+export const ProgressBar = ({ period, duration }: ProgressBarProps) => {
+	const timer = useTimerUtil();
+
+	const progress = progressInPercentage(
+		duration,
+		subtractTwoTimes(timer.time, period.from),
+	);
+
+	if (timer.time.minutes < period.from.minutes) {
+		return (
+			<div className="ProgressBar-container">
+				<div className="ProgressBar-background"></div>
+				<strong>{formatTime(duration)}</strong>
+			</div>
+		);
+	}
 
 	return (
 		<div className="ProgressBar-container">
@@ -18,7 +37,11 @@ export const ProgressBar = ({ internalTime, timer }: ProgressBarProps) => {
 					right: progress,
 				}}
 			></div>
-			<strong>{formatTime(timeLeft(internalTime, timer))}</strong>
+			<strong>
+				{progress === '0%'
+					? 'Done'
+					: formatTime(subtractTwoTimes(timer.time, period.to))}
+			</strong>
 		</div>
 	);
 };
