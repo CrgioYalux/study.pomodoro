@@ -3,6 +3,7 @@ import { Timer } from '../Timer';
 import { TimerUtilProvider } from '../../providers/TimerUtil';
 import { TasksUtilProvider } from '../../providers/TasksUtil';
 import { CreateTask } from '../CreateTask';
+import { Dashboard } from '../Dashboard';
 
 export const App = () => {
 	return (
@@ -11,6 +12,7 @@ export const App = () => {
 				<Timer />
 				<TasksUtilProvider>
 					<CreateTask />
+					<Dashboard />
 				</TasksUtilProvider>
 			</TimerUtilProvider>
 		</div>
