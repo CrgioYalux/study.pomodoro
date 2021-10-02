@@ -57,6 +57,7 @@ export const useTasks = (): useTasksValues => {
 		const task: Task = {
 			id: taskId,
 			title: taskTitle,
+			duration: taskEndTime,
 			period: {
 				from: taskStartTime,
 				to: taskEndTimeRelative,
