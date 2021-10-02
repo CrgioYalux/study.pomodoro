@@ -27,6 +27,13 @@ export const timeToSeconds = (time: Time): number => {
 	return time.minutes * 60 + time.seconds;
 };
 
+export const secondsToTime = (seconds: number): Time => {
+	return {
+		minutes: Math.floor(seconds / 60),
+		seconds: seconds % 60,
+	};
+};
+
 export const addTwoTimes = (timeA: Time, timeB: Time): Time => {
 	const addedSeconds = (timeA.seconds + timeB.seconds) % 60;
 	const addedMinutes =
@@ -39,9 +46,13 @@ export const addTwoTimes = (timeA: Time, timeB: Time): Time => {
 	};
 };
 
-export const secondsToTime = (seconds: number): Time => {
-	return {
-		minutes: Math.floor(seconds / 60),
-		seconds: seconds % 60,
-	};
+export const subtractTwoTimes = (timeA: Time, timeB: Time): Time => {
+	const timeAToSeconds = timeToSeconds(timeA);
+	const timeBtoSeconds = timeToSeconds(timeB);
+	const subtraction =
+		timeAToSeconds > timeBtoSeconds
+			? timeAToSeconds - timeBtoSeconds
+			: timeBtoSeconds - timeAToSeconds;
+	const subtractionToTime = secondsToTime(subtraction);
+	return subtractionToTime;
 };
