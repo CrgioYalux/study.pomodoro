@@ -15,13 +15,16 @@ export const CreateTask = () => {
 				value: string;
 			};
 		};
-		const taskTitle: string = target.title.value;
-		const taskEndTime: Time = JSON.parse(target.time_option.value);
 
-		createTask(taskTitle, taskEndTime);
+		if (target.title.value && target.time_option.value) {
+			const taskTitle: string = target.title.value;
+			const taskEndTime: Time = JSON.parse(target.time_option.value);
 
-		target.title.value = '';
-		target.title.focus();
+			createTask(taskTitle, taskEndTime);
+
+			target.title.value = '';
+			target.title.focus();
+		}
 	};
 
 	return (
@@ -31,6 +34,7 @@ export const CreateTask = () => {
 				name="title"
 				placeholder="Write a title for the task"
 				className="input-title"
+				required
 				autoFocus
 			/>
 			<div className="CreateTask-time-options">
@@ -44,6 +48,7 @@ export const CreateTask = () => {
 								minutes: option.minutes,
 								seconds: option.seconds,
 							})}
+							required
 						/>
 						<label htmlFor={`time_option_${option.minutes}${option.seconds}`}>
 							{option.label}
