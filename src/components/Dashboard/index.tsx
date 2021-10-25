@@ -2,18 +2,20 @@ import './Dashboard.scss';
 import { DisplayTask } from '../DisplayTask';
 import { useTasksUtil } from '../../providers/TasksUtil';
 import { Task } from '../../hooks/useTasks/Task';
+import { DraggableContainer } from '../DraggableContainer';
+
 export const Dashboard = () => {
 	const { tasks } = useTasksUtil();
 
 	if (tasks.length === 0)
 		return (
-			<ul className="Dashboard-container">
-				<li className="Dashboard-notasks">0 tasks</li>
-			</ul>
+			<DraggableContainer classNameContainer="Dashboard-container">
+				<h3 className="Dashboard-notasks">0 tasks</h3>
+			</DraggableContainer>
 		);
 
 	return (
-		<ul className="Dashboard-container">
+		<DraggableContainer classNameContainer="Dashboard-container">
 			{tasks.map(({ id, title, period, duration }: Task) => (
 				<DisplayTask
 					key={id}
@@ -22,6 +24,6 @@ export const Dashboard = () => {
 					duration={duration}
 				/>
 			))}
-		</ul>
+		</DraggableContainer>
 	);
 };

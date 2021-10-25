@@ -3,6 +3,7 @@ import './CreateTask.scss';
 import { Time } from '../../hooks/useTime/Time';
 import { timeOptions } from './utils';
 import { useTasksUtil } from '../../providers/TasksUtil';
+import { DraggableContainer } from '../DraggableContainer';
 
 export const CreateTask = () => {
 	const { createTask } = useTasksUtil();
@@ -28,39 +29,41 @@ export const CreateTask = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="CreateTask-container">
-			<input
-				type="text"
-				name="title"
-				placeholder="Write a title for the task"
-				className="input-title"
-				required
-				autoFocus
-			/>
-			<div className="CreateTask-time-options">
-				{timeOptions.map((option, idx) => (
-					<div key={idx} className="time-option">
-						<input
-							type="radio"
-							name="time_option"
-							id={`time_option_${option.minutes}${option.seconds}`}
-							value={JSON.stringify({
-								minutes: option.minutes,
-								seconds: option.seconds,
-							})}
-							required
-						/>
-						<label htmlFor={`time_option_${option.minutes}${option.seconds}`}>
-							{option.label}
-						</label>
-					</div>
-				))}
-			</div>
-			<input
-				type="submit"
-				value="Create task"
-				className="CreateTask-submit-button"
-			/>
-		</form>
+		<DraggableContainer classNameGrabber="CreateTask-Grabber">
+			<form onSubmit={handleSubmit} className="CreateTask-container">
+				<input
+					type="text"
+					name="title"
+					placeholder="Write a title for the task"
+					className="input-title"
+					required
+					autoFocus
+				/>
+				<div className="CreateTask-time-options">
+					{timeOptions.map((option, idx) => (
+						<div key={idx} className="time-option">
+							<input
+								type="radio"
+								name="time_option"
+								id={`time_option_${option.minutes}${option.seconds}`}
+								value={JSON.stringify({
+									minutes: option.minutes,
+									seconds: option.seconds,
+								})}
+								required
+							/>
+							<label htmlFor={`time_option_${option.minutes}${option.seconds}`}>
+								{option.label}
+							</label>
+						</div>
+					))}
+				</div>
+				<input
+					type="submit"
+					value="Create task"
+					className="CreateTask-submit-button"
+				/>
+			</form>
+		</DraggableContainer>
 	);
 };

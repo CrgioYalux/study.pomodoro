@@ -1,12 +1,13 @@
 import './Timer.scss';
 import { useTimerUtil } from '../../providers/TimerUtil';
 import { formatTime } from '../../hooks/useTime/Time';
+import { DraggableContainer } from '../DraggableContainer';
 
 export const Timer = () => {
 	const { startTimer, stopTimer, restartTimer, time } = useTimerUtil();
 
 	return (
-		<div className="Timer-container">
+		<DraggableContainer classNameContainer="Timer-container">
 			<div className="Timer-show">
 				<strong>{formatTime(time)}</strong>
 			</div>
@@ -21,6 +22,6 @@ export const Timer = () => {
 					Restart
 				</button>
 			</div>
-		</div>
+		</DraggableContainer>
 	);
 };
