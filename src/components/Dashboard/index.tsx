@@ -9,13 +9,13 @@ export const Dashboard = () => {
 
 	if (tasks.length === 0)
 		return (
-			<DraggableContainer classNameContainer="Dashboard-container">
+			<DraggableContainer classNameContainer="Dashboard-container _empty">
 				<h3 className="Dashboard-notasks">0 tasks</h3>
 			</DraggableContainer>
 		);
 
 	return (
-		<DraggableContainer classNameContainer="Dashboard-container">
+		<DraggableContainer classNameContainer="Dashboard-container _not_empty">
 			{tasks.map(({ id, title, period, duration }: Task) => (
 				<DisplayTask
 					key={id}
