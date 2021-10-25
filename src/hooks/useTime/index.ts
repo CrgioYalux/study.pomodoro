@@ -11,6 +11,7 @@ export interface useTimerValues {
 	stopTimer: () => void;
 	startTimer: () => void;
 	restartTimer: () => void;
+	timerRunning: boolean;
 }
 
 export const useTimer = ({
@@ -65,6 +66,7 @@ export const useTimer = ({
 
 	return {
 		time: { seconds, minutes },
+		timerRunning: counterRunning,
 		stopTimer: stopCounting,
 		startTimer: startCounting,
 		restartTimer: restartCounting,
