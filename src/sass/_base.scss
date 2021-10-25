@@ -1,10 +1,12 @@
+@import './vars';
+
 .base-button {
 	font-family: sans-serif;
 	font-size: 1rem;
 	text-transform: lowercase;
 	padding: 0.2em 0;
-	color: whitesmoke;
-	background-color: black;
+	color: $neutral-lightest;
+	background-color: $secondary-darkest;
 	border: 0;
 	border-radius: 999px;
 	cursor: pointer;
