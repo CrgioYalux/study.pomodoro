@@ -7,7 +7,7 @@ const TimerUtilContext = createContext<useTimerValues>({
 	startTimer: () => {},
 	stopTimer: () => {},
 	restartTimer: () => {},
-	timerRunning: false,
+	isTimerRunning: false,
 });
 
 export const useTimerUtil = () => useContext(TimerUtilContext);
@@ -16,16 +16,7 @@ interface TimerUtilProviderProps {
 	children: React.ReactNode;
 }
 export const TimerUtilProvider = ({ children }: TimerUtilProviderProps) => {
-	const { time, restartTimer, startTimer, stopTimer, timerRunning } = useTimer(
-		TimePreConfig.FromZeroToInfinite,
-	);
-	const value = {
-		time,
-		restartTimer,
-		startTimer,
-		stopTimer,
-		timerRunning,
-	};
+	const value = useTimer(TimePreConfig.FromZeroToInfinite);
 	return (
 		<TimerUtilContext.Provider value={value}>
 			{children}

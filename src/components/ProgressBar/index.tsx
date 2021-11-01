@@ -7,6 +7,8 @@ import {
 } from '../../hooks/useTime/Time';
 import { useTimerUtil } from '../../providers/TimerUtil';
 import { progressInPercentage } from './utils';
+import { isTaskStarted } from './utils';
+
 interface ProgressBarProps {
 	period: Period;
 	duration: Time;
@@ -20,7 +22,7 @@ export const ProgressBar = ({ period, duration }: ProgressBarProps) => {
 		subtractTwoTimes(timer.time, period.from),
 	);
 
-	if (timer.time.minutes < period.from.minutes) {
+	if (!isTaskStarted(period.from, timer.time)) {
 		return (
 			<div className="ProgressBar-container">
 				<div className="ProgressBar-background"></div>

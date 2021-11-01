@@ -16,13 +16,8 @@ export const Dashboard = () => {
 
 	return (
 		<DraggableContainer classNameContainer="Dashboard-container _not_empty">
-			{tasks.map(({ id, title, period, duration }: Task) => (
-				<DisplayTask
-					key={id}
-					title={title}
-					period={period}
-					duration={duration}
-				/>
+			{tasks.map((task: Task) => (
+				<DisplayTask key={task.id} task={task} />
 			))}
 		</DraggableContainer>
 	);

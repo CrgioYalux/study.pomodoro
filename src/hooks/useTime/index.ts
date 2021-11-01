@@ -11,43 +11,36 @@ export interface useTimerValues {
 	stopTimer: () => void;
 	startTimer: () => void;
 	restartTimer: () => void;
-	timerRunning: boolean;
+	isTimerRunning: boolean;
 }
 
 export const useTimer = ({
 	from,
 	to,
-	autostart,
+	autostart = false,
 }: useTimerProps): useTimerValues => {
 	const [seconds, setSeconds] = useState(from.seconds);
 	const [minutes, setMinutes] = useState(from.minutes);
-	const [counterRunning, setCounterRunning] = useState(false);
-
+	const [isCounterRunning, setIsCounterRunning] = useState(autostart);
 	const counterRef = useRef<NodeJS.Timeout>();
 
 	const stopCounting = (): void => {
-		counterRef.current && clearTimeout(counterRef.current);
-		setCounterRunning(false);
+		setIsCounterRunning(false);
 	};
 
 	const startCounting = (): void => {
-		setCounterRunning(true);
+		setIsCounterRunning(true);
 	};
 
 	const restartCounting = (): void => {
-		stopCounting();
+		setIsCounterRunning(false);
 		setSeconds(0);
 		setMinutes(0);
 	};
 
 	useEffect(() => {
-		if (autostart) startCounting();
-		return () => stopCounting();
-	}, [autostart]);
-
-	useEffect(() => {
-		if (counterRunning) {
-			counterRef.current && clearTimeout(counterRef.current);
+		counterRef.current && clearTimeout(counterRef.current);
+		if (isCounterRunning) {
 			counterRef.current = setTimeout(() => {
 				let prevSeconds = seconds;
 				setSeconds((s) => (s === 59 ? 0 : s + 1));
@@ -56,7 +49,7 @@ export const useTimer = ({
 				}
 			}, 1000);
 		}
-	}, [counterRunning, seconds]);
+	}, [isCounterRunning, seconds]);
 
 	useEffect(() => {
 		if (seconds === to.seconds && minutes === to.minutes) {
@@ -64,9 +57,13 @@ export const useTimer = ({
 		}
 	}, [seconds, minutes, to]);
 
+	useEffect(() => {
+		return () => stopCounting();
+	}, []);
+
 	return {
 		time: { seconds, minutes },
-		timerRunning: counterRunning,
+		isTimerRunning: isCounterRunning,
 		stopTimer: stopCounting,
 		startTimer: startCounting,
 		restartTimer: restartCounting,

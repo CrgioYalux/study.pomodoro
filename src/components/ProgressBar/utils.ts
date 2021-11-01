@@ -11,3 +11,10 @@ export const progressInPercentage = (
 	const percentage = timeToPercentage(internalTime, timer);
 	return percentage > 100 ? '0%' : `${100 - percentage}%`;
 };
+
+export const isTaskStarted = (taskTimeToStart: Time, time: Time): Boolean => {
+	const taskTimeToStartInSeconds = timeToSeconds(taskTimeToStart);
+	const timeInSeconds = timeToSeconds(time);
+
+	return timeInSeconds >= taskTimeToStartInSeconds;
+};
