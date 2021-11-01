@@ -29,8 +29,8 @@ export const CreateTask = () => {
 	};
 
 	return (
-		<DraggableContainer classNameGrabber="CreateTask-Grabber">
-			<form onSubmit={handleSubmit} className="CreateTask-container">
+		<DraggableContainer classNameContainer="CreateTask-container">
+			<form onSubmit={handleSubmit}>
 				<input
 					type="text"
 					name="title"

@@ -2,7 +2,7 @@
 @import '../../sass/vars';
 
 .Timer-container {
-	position: relative;
+	grid-area: a;
 	border-radius: 5px;
 	display: flex;
 	flex-direction: column;

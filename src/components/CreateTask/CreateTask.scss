@@ -2,63 +2,67 @@
 @import '../../sass/vars';
 
 .CreateTask-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
-	background-color: $secondary-dark;
-	padding: 5px;
-	border-radius: 5px;
+	grid-area: b;
 
-	.input-title {
-		width: 80%;
-		border: 0;
-		border-radius: 5px;
-		font-size: 1rem;
-		padding: 0.2em 0;
-		font-family: sans-serif;
-		font-weight: 600;
-		color: $neutral-lighter;
-		text-align: center;
-		text-transform: lowercase;
-		background-color: $secondary-darkest;
-	}
-	.CreateTask-time-options {
+	form {
 		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
+		flex-direction: column;
 		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		background-color: $secondary-dark;
+		padding: 5px;
+		border-radius: 5px;
 
-		gap: 5px;
+		.input-title {
+			width: 80%;
+			border: 0;
+			border-radius: 5px;
+			font-size: 1rem;
+			padding: 0.2em 0;
+			font-family: sans-serif;
+			font-weight: 600;
+			color: $neutral-lighter;
+			text-align: center;
+			text-transform: lowercase;
+			background-color: $secondary-darkest;
+		}
+		.CreateTask-time-options {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
 
-		.time-option {
-			flex: 0 1 30%;
-			label {
-				display: block;
-				background-color: $secondary-darkest;
-				color: $neutral-lighter;
-				font-family: sans-serif;
-				font-size: clamp(1rem, 6vw, 2rem);
-				text-align: center;
-				font-weight: 600;
-				padding: 0.1em 0.2em;
-				border: 3px solid transparent;
-				border-radius: 16px;
-				cursor: pointer;
-			}
-			input {
-				display: none;
-				&:checked ~ label {
-					border-color: currentColor;
+			gap: 5px;
+
+			.time-option {
+				flex: 0 1 30%;
+				label {
+					display: block;
+					background-color: $secondary-darkest;
+					color: $neutral-lighter;
+					font-family: sans-serif;
+					font-size: clamp(1rem, 6vw, 2rem);
+					text-align: center;
+					font-weight: 600;
+					padding: 0.1em 0.2em;
+					border: 3px solid transparent;
+					border-radius: 16px;
+					cursor: pointer;
+				}
+				input {
+					display: none;
+					&:checked ~ label {
+						border-color: currentColor;
+					}
 				}
 			}
 		}
-	}
-	.CreateTask-submit-button {
-		@extend .base-button;
-		border-color: transparent;
-		padding: 0.6em 0.8em;
+		.CreateTask-submit-button {
+			@extend .base-button;
+			border-color: transparent;
+			padding: 0.6em 0.8em;
+		}
 	}
 }

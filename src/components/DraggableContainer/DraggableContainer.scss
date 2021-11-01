@@ -1,25 +1,29 @@
 @import '../../sass/vars';
 
-.grabber {
-	display: none;
-	@media (min-width: 1024px) {
-		display: block;
-		position: absolute;
-		top: 5px;
-		left: 5px;
-		font-size: 1rem;
-		font-family: sans-serif;
-		font-weight: 800;
-		background-color: $secondary-darker;
-		color: $neutral-light;
-		padding: 0.2em 0.4em;
-		border-radius: 9px;
-		cursor: grab;
-		user-select: none;
-		opacity: 0.6;
-		transition: opacity 0.4s;
-		&:hover {
-			opacity: 1;
+.draggable-container {
+	position: relative;
+
+	.grabber {
+		display: none;
+		@media (min-width: 1024px) {
+			display: block;
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			font-size: 1rem;
+			font-family: sans-serif;
+			font-weight: 800;
+			background-color: $secondary-darker;
+			color: $neutral-light;
+			padding: 0.2em 0.4em;
+			border-radius: 9px;
+			cursor: grab;
+			user-select: none;
+			opacity: 0.6;
+			transition: opacity 0.4s;
+			&:hover {
+				opacity: 1;
+			}
 		}
 	}
 }

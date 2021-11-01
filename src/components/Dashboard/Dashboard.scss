@@ -2,7 +2,7 @@
 @import '../../sass/base';
 
 .Dashboard-container {
-	position: relative;
+	grid-area: c;
 
 	display: flex;
 	flex-direction: column;
@@ -23,6 +23,10 @@
 			font-weight: 800;
 			text-transform: uppercase;
 			color: $secondary-dark;
+		}
+		height: 90%;
+		@media (min-width: 1024px) {
+			max-height: 100px;
 		}
 	}
 }

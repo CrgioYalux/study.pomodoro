@@ -45,7 +45,6 @@ export const DraggableContainer = ({
 	return (
 		<div
 			className={`draggable-container ${classNameContainer}`}
-			style={{ position: 'relative' }}
 			ref={draggableContainerRef}
 		>
 			<div
