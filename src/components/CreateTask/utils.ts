@@ -2,11 +2,6 @@ import { Time } from '../../hooks/useTime/Time';
 
 export const timeOptions: Array<Time & { label: string }> = [
 	{
-		minutes: 0,
-		seconds: 30,
-		label: '00:30',
-	},
-	{
 		minutes: 5,
 		seconds: 0,
 		label: '05:00',
