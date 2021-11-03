@@ -1,18 +1,24 @@
-import { createContext, useContext, useRef, useState } from 'react';
+import { createContext, useContext, useRef, useState, useEffect } from 'react';
 
 interface DragDropContextProps {
 	position: {
 		x: number;
 		y: number;
 	};
-	moving: boolean;
+	backgroundSize: {
+		width: number;
+		height: number;
+	};
 }
 const DragDropContext = createContext<DragDropContextProps>({
 	position: {
 		x: 0,
 		y: 0,
 	},
-	moving: false,
+	backgroundSize: {
+		width: 0,
+		height: 0,
+	},
 });
 
 export const useDragDrop = () => useContext(DragDropContext);
@@ -25,33 +31,45 @@ export const DragDropProvider = ({
 	children,
 	classNameBackground,
 }: DragDropProviderProps) => {
-	const containerRef = useRef(null);
-	const [moving, setMoving] = useState<boolean>(false);
+	const containerRef = useRef<HTMLDivElement>(null);
 	const [position, setPosition] = useState<{ x: number; y: number }>({
 		x: 0,
 		y: 0,
 	});
+	const [backgroundSize, setBackgroundSize] = useState<{
+		width: number;
+		height: number;
+	}>({ width: 1024, height: 768 });
+
+	useEffect(() => {
+		if (containerRef.current) {
+			const container = containerRef.current as HTMLDivElement;
+			setBackgroundSize((prev) => {
+				if (
+					prev?.width !== container.clientWidth &&
+					prev?.height !== container.clientHeight
+				) {
+					return {
+						width: container.clientWidth,
+						height: container.clientHeight,
+					};
+				}
+				return prev;
+			});
+		}
+	}, [position]);
 
 	const value = {
 		position,
-		moving,
+		backgroundSize,
 	};
 
 	return (
 		<div
 			className={classNameBackground}
 			ref={containerRef}
-			onMouseDown={(e) => {
-				setMoving(true);
-				setPosition({ x: e.pageX, y: e.pageY });
-			}}
-			onMouseUp={(e) => {
-				setMoving(false);
-			}}
 			onMouseMove={(e) => {
-				if (moving) {
-					setPosition({ x: e.pageX, y: e.pageY });
-				}
+				setPosition({ x: e.pageX, y: e.pageY });
 			}}
 		>
 			<DragDropContext.Provider value={value}>
