@@ -22,6 +22,11 @@ export const ProgressBar = ({ period, duration }: ProgressBarProps) => {
 		subtractTwoTimes(timer.time, period.from),
 	);
 
+	const progressBarText =
+		progress === '0%'
+			? ' '
+			: formatTime(subtractTwoTimes(timer.time, period.to));
+
 	if (!isTaskStarted(period.from, timer.time)) {
 		return (
 			<div className="ProgressBar-container">
@@ -39,11 +44,7 @@ export const ProgressBar = ({ period, duration }: ProgressBarProps) => {
 					right: progress,
 				}}
 			></div>
-			<strong>
-				{progress === '0%'
-					? 'Done'
-					: formatTime(subtractTwoTimes(timer.time, period.to))}
-			</strong>
+			<strong>{progressBarText}</strong>
 		</div>
 	);
 };
