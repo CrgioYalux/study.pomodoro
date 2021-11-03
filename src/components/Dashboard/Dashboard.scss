@@ -8,7 +8,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 5px;
+	// gap: 5px;
 	width: 100%;
 	max-width: 500px;
 	border-radius: 5px;
@@ -28,5 +28,15 @@
 		@media (min-width: 1024px) {
 			max-height: 100px;
 		}
+	}
+
+	.TasksDone {
+		background-color: $primary-dark;
+		padding: 0.3em 0.6em;
+		font-family: sans-serif;
+		font-size: 0.8rem;
+		color: $neutral-light;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
 	}
 }
